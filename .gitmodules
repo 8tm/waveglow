@@ -1,4 +1,4 @@
 [submodule "tacotron2"]
-    path = tacotron2
-    url = http://github.com/8tm/tacotron2
-    branch = tacotron2_polish
+	path = tacotron2
+	url = http://github.com/8tm/tacotron2
+	branch = tacotron2_polish
