@@ -1,2 +1,11 @@
 .idea/
 .venv/
+*.egg-info/
+
+build/
+content/
+wavs/
+__pycache__/
+
+mel_spectrograms/
+waveglow_256channels_universal_v5.pt

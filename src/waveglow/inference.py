@@ -24,14 +24,17 @@
 #  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # *****************************************************************************
+import argparse
 import os
 from scipy.io.wavfile import write
+
 import torch
-from mel2samp import files_to_list, MAX_WAV_VALUE
-from denoiser import Denoiser
+
+from waveglow.mel2samp import files_to_list, MAX_WAV_VALUE
+from waveglow.denoiser import Denoiser
 
 
-def main(mel_files, waveglow_path, sigma, output_dir, sampling_rate, is_fp16,
+def write_audio(mel_files, waveglow_path, sigma, output_dir, sampling_rate, is_fp16,
          denoiser_strength):
     mel_files = files_to_list(mel_files)
     waveglow = torch.load(waveglow_path)['model']
@@ -64,9 +67,7 @@ def main(mel_files, waveglow_path, sigma, output_dir, sampling_rate, is_fp16,
         print(audio_path)
 
 
-if __name__ == "__main__":
-    import argparse
-
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', "--filelist_path", required=True)
     parser.add_argument('-w', '--waveglow_path',
@@ -80,5 +81,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.filelist_path, args.waveglow_path, args.sigma, args.output_dir,
-         args.sampling_rate, args.is_fp16, args.denoiser_strength)
+    write_audio(args.filelist_path, args.waveglow_path, args.sigma, args.output_dir,
+                args.sampling_rate, args.is_fp16, args.denoiser_strength)
+
+
+if __name__ == "__main__":
+    main()

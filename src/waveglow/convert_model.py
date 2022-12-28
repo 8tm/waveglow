@@ -63,7 +63,7 @@ def update_model(old_model):
         _update_model_cond(old_model, new_model)
     for m in new_model.modules():
         if 'Conv' in str(type(m)) and not hasattr(m, 'padding_mode'):
-            setattr(m, 'padding_mode', 'zeros')        
+            setattr(m, 'padding_mode', 'zeros')
     return new_model
 
 if __name__ == '__main__':
@@ -72,4 +72,3 @@ if __name__ == '__main__':
     model = torch.load(old_model_path, map_location='cpu')
     model['model'] = update_model(model['model'])
     torch.save(model, new_model_path)
-    
